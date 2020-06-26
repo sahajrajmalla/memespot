@@ -1,0 +1,53 @@
+{% extends 'blog/layout.html' %}
+{% block style %}
+.fakeimg {
+background-color: #aaa;
+width: 100%;
+height: auto;
+}
+
+/* Add a card effect for articles */
+.card {
+background-color: white;
+padding: 20px;
+margin-top: 20px;
+}
+{% endblock style %}
+{% block messages %}
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-{{message.tags}}">
+    {{message}}
+</div>
+{% endfor %}
+{% endif %}
+{% endblock messages %}
+{% block content %}
+   <div>
+
+        <div class="content-section">
+            <h2 style="font-size: 14px;">
+                <img class="rounded-circle" style="width: 60px; height: 60px"
+                    src="{{ blog.author.profile.image.url }}">
+                <a class="article-title" href="{% url 'blog-detail' blog.id %}" style="font-size: 24px;">{{blog.title}}</a> by
+                <b style="font-size: 16px;">{{blog.author}}</b></h2>
+            <h5 style="font-size: 12px;">{{blog.date}}</h5>
+
+            {% if blog.author == user %}
+            <div>
+                <a class="btn btn-outline-danger" href="{% url 'blog-delete' blog.id %}">Delete</a>
+                <a class="btn btn-outline-primary" href="{% url 'blog-update' blog.id %}">Update</a>
+            </div>
+            {% endif %}
+        </div>
+        <div>
+            <p>{{blog.content}}</p>
+            <div class="fakeimg" style="height:65vw; width: 100%">
+                <img src="{{blog.meme_image.url}}" style="width: 100%; height: 100%">
+            </div>
+        </div>
+     
+
+
+
+        {% endblock content %}
